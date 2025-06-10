@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 
 # todo: DRY this with other scripts
 def load_env():
@@ -46,5 +47,6 @@ if __name__ == "__main__":
     steamid = env['STEAMID64']
     games = get_owned_games(api_key, steamid)
     print(f"Total games: {len(games)}")
-    for game in games:
-        print(game)
+    with open('owned_games.json', 'w', encoding='utf-8') as f:
+        json.dump(games, f, ensure_ascii=False, indent=2)
+    print("Owned games saved to owned_games.json")

@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 
 # todo: DRY this with other scripts
 def load_env():
@@ -43,5 +44,7 @@ if __name__ == "__main__":
     api_key = env['STEAM_API_KEY']
     steamid = env['STEAMID64']
     recent_games = get_recently_played_games(api_key, steamid)
-    for game in recent_games:
-        print(game)
+    print(f"Total recently played games: {len(recent_games)}")
+    with open('recently_played_games.json', 'w', encoding='utf-8') as f:
+        json.dump(recent_games, f, ensure_ascii=False, indent=2)
+    print("Recently played games saved to recently_played_games.json")
